@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btn = findViewById(R.id.btnGuardar);
+        btn = findViewById(R.id.btnAgregarContacto);
 
         recyclerView = findViewById(R.id.rcvListaContactos);
 
@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 1000 && resultCode == RESULT_OK) {
 
             nuevoContacto = (Contacto) getIntent().getSerializableExtra("Serializable");
+            assert nuevoContacto != null;
             String usuario = nuevoContacto.getUsuario();
             String email = nuevoContacto.getEmail();
             String twitter = nuevoContacto.getTwitter();
@@ -76,8 +77,8 @@ public class MainActivity extends AppCompatActivity {
                     + "Teléfono: " + telefono + "\n"
                     + "Fecha de nacimiento: " + fechaNacimiento, Toast.LENGTH_LONG).show();
 
-            Toast.makeText(MainActivity.this, "Contacto creado exitosamente.",
-                    Toast.LENGTH_LONG).show();
+            /*Toast.makeText(MainActivity.this, "Contacto creado exitosamente.",
+                    Toast.LENGTH_LONG).show();*/
         } else {
             Toast.makeText(MainActivity.this, "Contacto NO creado.",
                     Toast.LENGTH_LONG).show();

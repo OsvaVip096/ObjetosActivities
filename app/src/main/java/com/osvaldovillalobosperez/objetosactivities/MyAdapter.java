@@ -10,7 +10,6 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
-    private String[] mDataset;
     Context ctx;
 
     // Provide a reference to the views for each data item
@@ -19,44 +18,51 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         public TextView textView;
-        public MyViewHolder(TextView v) {
+        /* El view representa el Layout. Y depende de que widgets utilicemos en el Layout. */
+        public MyViewHolder(View v) {
             super(v);
-            textView = v;
+            textView = v.findViewById(R.id.txtItem);
         }
     }
 
+    String[] mdataSet;
+
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(String[] myDataset) {
-        mDataset = myDataset;
+    public MyAdapter(String[] dataSet) {
+        mdataSet = dataSet;
     }
 
     /* Constructor con contexto. Esto es nuevo. */
-    public MyAdapter(String[] myDataset, Context ctx) {
-        mDataset = myDataset;
+    public MyAdapter(String[] dataSet, Context ctx) {
+        mdataSet = dataSet;
         this.ctx = ctx;
     }
 
-    // Create new views (invoked by the layout manager)
+    // Create new views (invoked by the layout manager).
+    /* Permite inflar los datos que pasan de XML a Java. */
     @Override
     public MyAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
                                                      int viewType) {
         // create a new view
-        TextView v = (TextView) LayoutInflater.from(parent.getContext())
+        View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.my_text_view, parent, false);
         MyViewHolder vh = new MyViewHolder(v);
         return vh;
     }
 
     // Replace the contents of a view (invoked by the layout manager)
+    /* Es necesario instanciar cada widget con funcionalidad debido a que el adaptador no permite
+    funcionalidades específicas en cada widget, en este ejemplo setOnClickListener. */
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.textView.setText(mDataset[position]);
+        holder.textView.setText(mdataSet[position]);
         holder.textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ctx, "Presionando: " + ((TextView)view).getText(),  Toast.LENGTH_LONG).show();
+                Toast.makeText(ctx, "Presionando: " + ((TextView)view).getText(),
+                        Toast.LENGTH_LONG).show();
             }
         });
 
@@ -65,6 +71,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.length;
+        return mdataSet.length;
     }
 }

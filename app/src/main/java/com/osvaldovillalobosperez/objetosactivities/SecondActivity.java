@@ -18,6 +18,7 @@ import java.io.Serializable;
 
 public class SecondActivity extends AppCompatActivity {
 
+    Intent i;
     Button btn;
     EditText txtUsuario, txtEmail, txtTwitter, txtTelefono, txtFechaNacimiento;
 
@@ -33,6 +34,7 @@ public class SecondActivity extends AppCompatActivity {
         txtFechaNacimiento = findViewById(R.id.txtFechaNacimiento);
 
         //Contacto nuevoContacto = null;
+        i = getIntent();
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,14 +65,13 @@ public class SecondActivity extends AppCompatActivity {
                                     Long.parseLong(txtTelefono.getText().toString()),
                                     Date.valueOf(txtFechaNacimiento.getText().toString())));*/
                     enviarContacto();
-                    setResult(RESULT_OK);
-                    finish();
                 }
             }
         });
     }
 
     public void enviarContacto() {
+        Intent i = new Intent();
         Contacto nuevoContacto = new Contacto(
                 txtUsuario.getText().toString(),
                 txtEmail.getText().toString(),
@@ -78,10 +79,13 @@ public class SecondActivity extends AppCompatActivity {
                 txtTelefono.getText().toString(),
                 txtFechaNacimiento.getText().toString());
 
-        Intent enviar = new Intent(SecondActivity.this, MainActivity.class);
+        //Intent enviar = new Intent(SecondActivity.this, MainActivity.class);
         Bundle b = new Bundle();
         b.putSerializable("Serializable", nuevoContacto);
-        enviar.putExtras(b);
-        startActivity(enviar);
+        //enviar.putExtras(b);
+        i.putExtras(b);
+        //startActivity(enviar);
+        setResult(RESULT_OK, i);
+        finish();
     }
 }
