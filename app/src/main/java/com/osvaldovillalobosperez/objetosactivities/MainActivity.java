@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        nuevoContacto = null;
+        //nuevoContacto = null;
     }
 
     @Override
@@ -63,8 +63,8 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1000 && resultCode == RESULT_OK) {
 
-            nuevoContacto = (Contacto) getIntent().getSerializableExtra("Serializable");
-            assert nuevoContacto != null;
+            //nuevoContacto = (Contacto) data.getSerializableExtra("Serializable");
+            nuevoContacto = (Contacto) data.getParcelableExtra("Parcelable");
             String usuario = nuevoContacto.getUsuario();
             String email = nuevoContacto.getEmail();
             String twitter = nuevoContacto.getTwitter();

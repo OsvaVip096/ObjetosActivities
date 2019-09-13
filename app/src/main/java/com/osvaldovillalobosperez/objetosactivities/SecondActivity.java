@@ -65,13 +65,15 @@ public class SecondActivity extends AppCompatActivity {
                                     Long.parseLong(txtTelefono.getText().toString()),
                                     Date.valueOf(txtFechaNacimiento.getText().toString())));*/
                     enviarContacto();
+                    setResult(MainActivity.RESULT_OK, i);
+                    finish();
                 }
             }
         });
     }
 
     public void enviarContacto() {
-        Intent i = new Intent();
+        //Intent i = new Intent();
         Contacto nuevoContacto = new Contacto(
                 txtUsuario.getText().toString(),
                 txtEmail.getText().toString(),
@@ -81,11 +83,10 @@ public class SecondActivity extends AppCompatActivity {
 
         //Intent enviar = new Intent(SecondActivity.this, MainActivity.class);
         Bundle b = new Bundle();
-        b.putSerializable("Serializable", nuevoContacto);
+        //b.putSerializable("Serializable", nuevoContacto);
+        b.putParcelable("Parcelable", nuevoContacto);
         //enviar.putExtras(b);
         i.putExtras(b);
         //startActivity(enviar);
-        setResult(RESULT_OK, i);
-        finish();
     }
 }
