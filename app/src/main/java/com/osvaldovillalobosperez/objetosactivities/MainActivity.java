@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
@@ -19,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
 
     Button btn;
 
+    ArrayList<String> enlistar = new ArrayList<>();
+    
     Contacto nuevoContacto;
 
     @Override
@@ -38,10 +42,6 @@ public class MainActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        // specify an adapter (see also next example)
-        mAdapter = new MyAdapter(new String [] {"Rojo", "Verde", "Azul", "Negro"}, this);
-        recyclerView.setAdapter(mAdapter);
-
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        //nuevoContacto = null;
+        nuevoContacto = null;
     }
 
     @Override
@@ -76,6 +76,11 @@ public class MainActivity extends AppCompatActivity {
                     + "Twitter: " + twitter + "\n"
                     + "Teléfono: " + telefono + "\n"
                     + "Fecha de nacimiento: " + fechaNacimiento, Toast.LENGTH_LONG).show();
+
+            enlistar.add(usuario + " " + email);
+            // specify an adapter (see also next example)
+            mAdapter = new MyAdapter(enlistar, this);
+            recyclerView.setAdapter(mAdapter);
 
             /*Toast.makeText(MainActivity.this, "Contacto creado exitosamente.",
                     Toast.LENGTH_LONG).show();*/

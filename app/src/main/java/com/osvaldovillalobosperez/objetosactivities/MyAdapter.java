@@ -7,7 +7,15 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     Context ctx;
@@ -26,15 +34,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     }
 
     String[] mdataSet;
+    ArrayList<String> datos;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MyAdapter(String[] dataSet) {
-        mdataSet = dataSet;
+    public MyAdapter(ArrayList<String> dataSet) {
+        datos = dataSet;
     }
 
     /* Constructor con contexto. Esto es nuevo. */
-    public MyAdapter(String[] dataSet, Context ctx) {
-        mdataSet = dataSet;
+    public MyAdapter(ArrayList<String> dataSet, Context ctx) {
+        datos = dataSet;
         this.ctx = ctx;
     }
 
@@ -57,7 +66,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public void onBindViewHolder(MyViewHolder holder, int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        holder.textView.setText(mdataSet[position]);
+        holder.textView.setText(datos.get(position));
         holder.textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,6 +80,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mdataSet.length;
+        return datos.size();
     }
 }
