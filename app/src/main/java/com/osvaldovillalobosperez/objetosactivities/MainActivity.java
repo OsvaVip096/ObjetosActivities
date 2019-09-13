@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     Button btn;
 
     ArrayList<String> enlistar = new ArrayList<>();
-    
+
     Contacto nuevoContacto;
 
     @Override
